@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "life.catalogue.matching.grpc";
+option java_outer_classname = "MatchProto";
+
+service MatchService {
+  rpc Match (NameUsageQueryRpc) returns (NameUsageMatchRpc);
+}
+
+message Classification {
+  string kingdom = 1;
+  string phylum = 2;
+  string class = 3;
+  string order = 4;
+  string family = 5;
+  string genus = 6;
+  string subgenus = 7;
+  string species = 8;
+}
+
+message NameUsageQueryRpc {
+  string usage_key = 1;
+  string taxon_id = 2;
+  string taxon_concept_id = 3;
+  string scientific_name_id = 4;
+  string scientific_name = 5;
+  string authorship = 6;
+  string generic_name = 7;
+  string specific_epithet = 8;
+  string infra_specific_epithet = 9;
+  string rank = 10;
+  Classification classification = 11;
+  repeated string exclude = 12;
+  bool strict = 13;
+  bool verbose = 14;
+}
+
+message Status {
+  string dataset_key = 1;
+  string dataset_alias = 2;
+  string gbif_key = 3;
+  string status = 4;
+  string status_code = 5;
+  string source_id = 6;
+}
+
+message NameUsageMatchRpc {
+  bool synonym = 1;
+  Usage usage = 2;
+  Usage acceptedUsage = 3;
+  repeated RankedName classification = 4;
+  repeated Status status = 5;
+}
+
+message Usage {
+  string key = 1;
+  string name = 2;
+  string canonical_name = 3;
+  string authorship = 4;
+  string parent_id = 5;
+  string rank = 6;
+  string code = 7;
+  string uninomial = 8;
+  string genus = 9;
+  string infrageneric_epithet = 10;
+  string specific_epithet = 11;
+  string infraspecific_epithet = 12;
+  string cultivar_epithet = 13;
+  string phrase = 14;
+  string voucher = 15;
+  string nominating_party = 16;
+  bool candidatus = 17;
+  string notho = 18;
+  bool original_spelling = 19;
+  map<string, string> epithet_qualifier = 20;
+  string type = 21;
+  bool extinct = 22;
+  Authorship combination_authorship = 23;
+  Authorship basionym_authorship = 24;
+  string sanctioning_author = 25;
+  string taxonomic_note = 26;
+  string nomenclatural_note = 27;
+  string published_in = 28;
+  string unparsed = 29;
+  bool doubtful = 30;
+  bool manuscript = 31;
+  string state = 32;
+  repeated string warnings = 33;
+
+  bool is_abbreviated = 34;
+  bool is_autonym = 35;
+  bool is_binomial = 36;
+  bool is_trinomial = 37;
+  bool is_incomplete = 38;
+  bool is_indetermined = 39;
+  bool is_phrase_name = 40;
+  string terminal_epithet = 41;
+}
+
+message Authorship {
+  repeated string authors = 1;
+  int32 year = 2;
+}
+
+message RankedName {
+  string key = 1;
+  string name = 2;
+  string canonical_name = 3;
+  string rank = 4;
+}
+

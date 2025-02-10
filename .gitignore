@@ -1,0 +1,3 @@
+# Project exclude paths
+/matching-grpc-client/target/
+/matching-grpc-interface/target/
